@@ -1,0 +1,43 @@
+{% extends "index.html"%} {% block encabezado%} {% include "encabezado.html"%} {% endblock%} 
+{%block nav%}{%include "nav.html"%}{%endblock%}
+{%block contenido %}
+<div class="w-50" style="margin: 0 auto;">
+    <form action="/agregarCategoria/" method="post" class="was-validated">
+        {% csrf_token %}
+        <div>
+            <h3 class="text-center text-black-50"><b>Agregar Producto</b></h3>
+        </div>
+        <div class="mb-3">
+            <label class="fw-bold" for="txtNombre">Nombre: </label>
+            <input type="text" name="txtNombre" id="txtNombre" class="form-control" required>
+        </div>
+        <div class="mb-3 d-flex justify-content-center">
+            <div>
+                <button class="btn btn-success">Agregar</button>
+            </div>
+        </div>
+    </form>
+    <table class="table table-bordered table-hover">
+        <thead class="bg-danger text-center">
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for categoria in listaCategorias %}
+            <tr>
+                <td>{{categoria.id}}</td>
+                <td>{{categoria.catNombre}}</td>
+            </tr>
+            {% endfor%}
+        </tbody>
+    </table>
+</div>
+
+{%if mensaje %}
+<script>
+    Swal.fire("Agregar Categoria", '{{mensaje}}', 'info')
+</script>
+{% endif %}
+{%endblock %} {% block piePagina%} {% include "piePagina.html"%} {% endblock%}
