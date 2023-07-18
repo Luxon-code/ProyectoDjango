@@ -2,6 +2,8 @@ from django.shortcuts import render,redirect
 from appTienda.models import Categoria,Producto
 from django.db import Error
 import os
+from rest_framework import generics
+from appTienda.serializers import CategoriaSerializer,ProductoSerializer
 # Create your views here.
 def inicio(request):
     return render(request, 'listarProductos.html')
@@ -105,3 +107,19 @@ def eliminarProducto(request,id):
         mensaje=f"Problemas al eliminar el producto {error}"
     retorno = {"mensaje":mensaje} 
     return redirect("/inicio/",retorno)
+
+class CategoriaList(generics.ListCreateAPIView):
+    queryset=Categoria.objects.all()
+    serializer_class=CategoriaSerializer
+    
+class CategoriaDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset=Categoria.objects.all()
+    serializer_class=CategoriaSerializer
+    
+class ProductoList(generics.ListCreateAPIView):
+    queryset = Producto.objects.all()
+    serializer_class = ProductoSerializer
+
+class ProductoDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset= Producto.objects.all()
+    serializer_class = ProductoSerializer
