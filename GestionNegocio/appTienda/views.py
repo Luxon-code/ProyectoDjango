@@ -123,3 +123,4 @@ class ProductoList(generics.ListCreateAPIView):
 class ProductoDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset= Producto.objects.all()
     serializer_class = ProductoSerializer
+    lookup_field = 'proCodigo'
